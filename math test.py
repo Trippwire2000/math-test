@@ -27,35 +27,36 @@ while rounds < 10:
             first = randint(1, 12)
             second = randint(1, 12)
          
-        answerok = False   
 
-        while answerok == False:     
+        while True:     
+
             print('\n\nWhat is ' + str(first) + ' ' + operatorstring + ' ' + str(second) + '?') #ask the question
             correctanswer = round(operatorfunction(first, second))                              #destermine correct answer
 
             answerlist = [correctanswer, round(correctanswer + randint(6,10)), (correctanswer + randint(1,5)), round(correctanswer - randint(1,5))]
             shuffle(answerlist)                                                                 #shuffle the formulas so multiple choice is random order 
                                                         
-            print('1 - ' + str(answerlist[0] ) + '\n2 - ' + str(answerlist[1]) + '\n3 - ' + str(answerlist[2]) + '\n4 - ' + str(answerlist[3]))
+            print('\n1 >>   ' + str(answerlist[0] ) + '\n2 >>   ' + str(answerlist[1]) + '\n3 >>   ' + str(answerlist[2]) + '\n4 >>   ' + str(answerlist[3]))
     
-           
+            answerok = True
+
             try:
-                answer = int(input('\nWhat is your answer 1 - 4 >>> '))                         #check that entered answer is either 1, 2, 3 or 4
-                break
-            except ValueError:
+                answer = int(input('\nWhat is your answer 1 - 4 >>> '))                         
+            except ValueError:                                                                  #check that answer is an integer
                 print('Invalid input, please enter 1 - 4.')
-
-
+                answerok = False
+                   
+            if answerok == True:
+                if (answer > 0 and answer < 5):                                                 #check that entered answer is either 1, 2, 3 or 4
+                    break
+                else:
+                    print('Invalid input, please enter 1 - 4.')
+        
+          
         if answer == (answerlist.index(correctanswer) + 1):                                     #reference correct answer by position in the shuffled list
             print('\nCorrect!')
             score += 1
-            rounds += 1
-        elif answer > 4:
-            print('Invalid input, please enter 1 - 4.')
-            answerok = False                              
-        elif answer < 0:
-            print('Invalid input, please enter 1 - 4.')
-            answerok = False                                         
+            rounds += 1              
         else:
             print('\nYou are wrong')
             rounds += 1
